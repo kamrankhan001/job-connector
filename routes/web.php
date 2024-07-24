@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AutocompleteController;
+
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('index');
+})->name('index');
+
+Route::get('/autocomplete/location', [AutocompleteController::class, 'locations'])->name('autocomplete.locations');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
