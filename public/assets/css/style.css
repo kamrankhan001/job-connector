@@ -1,0 +1,21 @@
+::-webkit-scrollbar {
+    width: 8px;
+    /* For Chrome, Safari, and Edge */
+}
+
+::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    /* Background color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    /* Color of the scroll thumb */
+    border-radius: 4px;
+    /* Rounded corners for the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+    /* Darker color on hover */
+}

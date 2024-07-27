@@ -1,0 +1,96 @@
+/* Customize the intl-tel-input widget */
+.iti {
+width: 100%;
+/* Ensure it takes full width */
+}
+
+.iti .iti__flag-container {
+margin-right: 8px;
+width: 100%;
+/* Adjust spacing between flag and input */
+}
+
+.iti .iti__selected-flag {
+border-radius: 4px;
+/* Rounded corners for flag */
+}
+
+.iti .iti__input {
+border: 1px solid #d1d5db;
+/* Border color */
+border-radius: 4px;
+/* Rounded corners */
+padding: 0.5rem;
+/* Padding inside the input */
+box-shadow: none;
+/* Remove default shadow */
+font-size: 1rem;
+/* Adjust font size */
+}
+
+.iti .iti__input:focus {
+border-color: #2563eb;
+/* Border color on focus */
+outline: none;
+/* Remove default outline */
+box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+/* Custom shadow on focus */
+}
+
+/* Customize the dropdown */
+.iti__country {
+border: 1px solid #d1d5db;
+/* Border color for dropdown items */
+border-radius: 4px;
+/* Rounded corners for dropdown items */
+margin-bottom: 0;
+/* Remove bottom margin */
+padding: 0.5rem;
+/* Padding inside dropdown items */
+}
+
+.iti__country.iti__country--active {
+background-color: #f3f4f6;
+/* Background color for active item */
+}
+
+.iti__country .iti__flag {
+border-radius: 4px;
+/* Rounded corners for flag in dropdown */
+}
+
+.iti__country .iti__country-name {
+font-size: 0.875rem;
+/* Font size for country name */
+}
+
+.iti__country .iti__dial-code {
+color: #6b7280;
+/* Color for dial code */
+}
+
+.iti__country:hover {
+background-color: #e5e7eb;
+/* Background color on hover */
+}
+
+.iti__country--preferred {
+background-color: #f3f4f6;
+/* Background color for preferred countries */
+}
+
+/* Ensure the dropdown matches the width of the input */
+.iti__country-list {
+width: 100%;
+/* Make the dropdown width match the input */
+}
+
+/* Customize the appearance of the scrollbar */
+.iti__country-list {
+scrollbar-width: thin;
+/* For Firefox */
+scrollbar-color: #d1d5db #f3f4f6;
+/* For Firefox: thumb color and track color */
+}
+
+
