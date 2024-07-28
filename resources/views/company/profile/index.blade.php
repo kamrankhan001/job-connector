@@ -13,6 +13,16 @@
 
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5">
+        @if (session()->has('success'))
+            <div id="success-message"
+                class="flex items-center justify-between text-green-500 bg-green-100 border border-green-400 p-4 rounded mb-4 relative">
+                <span>{{ session()->get('success') }}</span>
+                <button type="button" id="close-button" class="text-green-500 hover:text-green-700">
+                    <x-heroicon-m-x-mark class="w-5 h-5 text-black"/>
+                </button>
+            </div>
+        @endif
+
         @if (Auth::user()->company)
             <div class="flex justify-end mb-4">
                 <a href="{{ route('company.profile.edit', ['company' => Auth::user()->id]) }}" type="button"
@@ -24,21 +34,20 @@
                 class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                 <div class="flex justify-between items-center mb-10 text-xl border-b">
                     <p>Company Name</p>
-                    <p>The OOps</p>
+                    <p>{{ $company->company_name }}</p>
                 </div>
                 <div class="flex justify-between items-center mb-10 text-xl border-b">
                     <p>Company Website</p>
-                    <a href="#" class="text-blue-500 hover:underline">somewebsite.com</a>
+                    <a href="{{ $company->name }}" class="text-blue-500 hover:underline">{{ $company->website }}</a>
                 </div>
                 <div class="flex justify-between items-center mb-10 text-xl border-b">
                     <p>Company Phone</p>
-                    <p>0300-3434444</p>
+                    <p>{{ $company->phone }}</p>
                 </div>
                 <div class="flex justify-between items-center text-xl border-b">
                     <p>Company Address</p>
                     <address class="not-italic">
-                        4300 Biscayne Blvd Suite 203<br>
-                        Miami - Florida - USA
+                        {{ $company->address }}
                     </address>
                 </div>
             </div>
@@ -61,6 +70,20 @@
         @endif
     </div>
 
+    <x-slot name="script">
+        <script>
+            $(document).ready(function() {
+                // Automatically disappear after 5 seconds (5000 milliseconds)
+                setTimeout(function() {
+                    $('#success-message').fadeOut('slow');
+                }, 5000);
 
+                // Allow manual closing
+                $('#close-button').click(function() {
+                    $('#success-message').fadeOut('slow');
+                });
+            });
+        </script>
+    </x-slot>
 
 </x-app-layout>

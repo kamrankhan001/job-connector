@@ -17,11 +17,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('company.profile');
+    Route::get('/company/profile', [ProfileController::class, 'index'])->name('company.profile');
 
-    Route::get('/profile/create', [ProfileController::class, 'create'])->name('company.profile.create');
+    Route::get('/company/profile/create', [ProfileController::class, 'create'])->name('company.profile.create');
+    Route::post('/company/profile/', [ProfileController::class, 'store'])->name('company.profile.store');
 
-    Route::get('/profile/{company}/edit', [ProfileController::class, 'edit'])->name('company.profile.edit');
+    Route::get('/company/profile/{company}/edit', [ProfileController::class, 'edit'])->name('company.profile.edit');
+    Route::put('/company/profile/{company}', [ProfileController::class, 'update'])->name('company.profile.update');
 
     Route::get('/profile/brezee', [BPC::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [BPC::class, 'update'])->name('profile.update');
