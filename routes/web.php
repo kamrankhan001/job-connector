@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController as BPC;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\Company\ProfileController;
+use App\Http\Controllers\Company\JobController;
 
 
 Route::get('/', function () {
@@ -28,6 +29,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/brezee', [BPC::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [BPC::class, 'update'])->name('profile.update');
     Route::delete('/profile', [BPC::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/jobs', [JobController::class, 'index'])->name('jobs');
+    Route::get('/show/{job}', [JobController::class, 'show'])->name('job.show');
+
+
+    Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
+    Route::post('/job', [JobController::class, 'store'])->name('job.store');
+
+    Route::get('/job/{job}/edit', [JobController::class, 'edit'])->name('job.edit');
+    Route::put('/job/{job}', [JobController::class, 'update'])->name('job.update');
+
+    Route::delete('/job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+
+
+
 });
 
 require __DIR__.'/auth.php';

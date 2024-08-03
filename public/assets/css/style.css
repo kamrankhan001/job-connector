@@ -19,3 +19,15 @@
     background: #a1a1a1;
     /* Darker color on hover */
 }
+
+/* Remove spinner arrows for Chrome, Safari, Edge, and Opera */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Remove spinner arrows for Firefox */
+input[type='number'] {
+    -moz-appearance: textfield;
+}
