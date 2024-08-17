@@ -26,9 +26,9 @@ class DatabaseSeeder extends Seeder
         });
 
         // Create 10 job seekers
-        JobSeeker::factory(10)->create();
+        // JobSeeker::factory(10)->create();
 
         // Create job applications for each job seeker
-        Application::factory(10)->create();
+        // Application::factory(10)->create();
     }
 }

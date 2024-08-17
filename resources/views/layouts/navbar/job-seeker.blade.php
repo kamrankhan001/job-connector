@@ -17,9 +17,6 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')">
-                        {{ __('Jobs') }}
-                    </x-nav-link>
                 </div>
             </div>
 
@@ -38,8 +35,8 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('company.profile')" class="text-sm font-medium">
-                            {{ __('Company') }}
+                        <x-dropdown-link :href="route('portfolio')" class="text-sm font-medium">
+                            {{ __('Portfolio') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile.edit')" class="text-sm font-medium">
@@ -75,9 +72,6 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-sm font-medium">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-nav-link :href="route('jobs')" :active="request()->routeIs('jobs')" class="text-sm font-medium">
-                {{ __('Jobs') }}
-            </x-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -88,8 +82,8 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-dropdown-link :href="route('company.profile')" class="text-sm font-medium">
-                    {{ __('Company') }}
+                <x-dropdown-link :href="route('portfolio')" class="text-sm font-medium">
+                    {{ __('Portfolio') }}
                 </x-dropdown-link>
 
                 <x-responsive-nav-link :href="route('profile.edit')" class="text-sm font-medium">

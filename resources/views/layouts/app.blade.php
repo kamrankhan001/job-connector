@@ -20,7 +20,14 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-        @include('layouts.navigation')
+
+        @if (auth()->user()->role === 'job_seeker')
+            @include('layouts.navbar.job-seeker')
+        @elseif(auth()->user()->role === 'company')
+            @include('layouts.navbar.company')
+        @else
+            @include('layouts.navbar.admin')
+        @endif
 
         <!-- Page Heading -->
         @isset($header)

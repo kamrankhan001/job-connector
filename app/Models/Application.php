@@ -13,9 +13,9 @@ class Application extends Model
         'jobs_listing_id', 'job_seeker_id', 'cover_letter', 'status', 'applied_at',
     ];
 
-    public function job()
+    public function jobsListing()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(JobsListing::class);
     }
 
     public function jobSeeker()

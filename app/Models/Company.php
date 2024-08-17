@@ -18,8 +18,8 @@ class Company extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function jobs()
+    public function jobsListing()
     {
-        return $this->hasMany(jobsListing::class);
+        return $this->hasMany(JobsListing::class);
     }
 }

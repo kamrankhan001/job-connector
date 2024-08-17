@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\Company\ProfileController;
 use App\Http\Controllers\Company\JobController;
+use App\Http\Controllers\Company\ApplicationController;
+
+// JOb Seeker
+use App\Http\Controllers\JobSeeker\PortfolioController;
+
 
 
 Route::get('/', function () {
@@ -20,11 +25,11 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/company/profile', [ProfileController::class, 'index'])->name('company.profile');
 
-    Route::get('/company/profile/create', [ProfileController::class, 'create'])->name('company.profile.create');
-    Route::post('/company/profile/', [ProfileController::class, 'store'])->name('company.profile.store');
+    Route::get('/company/create', [ProfileController::class, 'create'])->name('company.profile.create');
+    Route::post('/company', [ProfileController::class, 'store'])->name('company.profile.store');
 
-    Route::get('/company/profile/{company}/edit', [ProfileController::class, 'edit'])->name('company.profile.edit');
-    Route::put('/company/profile/{company}', [ProfileController::class, 'update'])->name('company.profile.update');
+    Route::get('/company/{company}/edit', [ProfileController::class, 'edit'])->name('company.profile.edit');
+    Route::put('/company/{company}', [ProfileController::class, 'update'])->name('company.profile.update');
 
     Route::get('/profile/brezee', [BPC::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [BPC::class, 'update'])->name('profile.update');
@@ -33,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/jobs', [JobController::class, 'index'])->name('jobs');
     Route::get('/show/{job}', [JobController::class, 'show'])->name('job.show');
 
-
     Route::get('/job/create', [JobController::class, 'create'])->name('job.create');
     Route::post('/job', [JobController::class, 'store'])->name('job.store');
 
@@ -41,6 +45,18 @@ Route::middleware('auth')->group(function () {
     Route::put('/job/{job}', [JobController::class, 'update'])->name('job.update');
 
     Route::delete('/job/{job}', [JobController::class, 'destroy'])->name('job.destroy');
+
+    Route::get('/Applications', [ApplicationController::class, 'index'])->name('applications');
+
+
+    // Job Seeker
+    Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
+
+    Route::get('/portfolio/create', [PortfolioController::class, 'create'])->name('portfolio.create');
+    Route::post('/portfolio', [PortfolioController::class, 'store'])->name('portfolio.store');
+    
+    Route::get('/portfolio/{portfolio}/edit', [PortfolioController::class, 'edit'])->name('portfolio.edit');
+    Route::put('/portfolio/{portfolio}', [PortfolioController::class, 'update'])->name('portfolio.update');
 
 
 
