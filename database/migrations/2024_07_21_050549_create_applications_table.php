@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jobs_listings_id')->constrained()->onDelete('cascade');
             $table->foreignId('job_seeker_id')->constrained()->onDelete('cascade');
-            $table->text('cover_letter')->nullable();
             $table->enum('status', ['applied', 'reviewed', 'interviewed', 'hired', 'rejected'])->default('applied');
             $table->timestamp('applied_at')->useCurrent();
             $table->timestamps();

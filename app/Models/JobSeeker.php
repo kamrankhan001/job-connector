@@ -13,6 +13,11 @@ class JobSeeker extends Model
         'user_id', 'first_name', 'last_name', 'resume', 'phone', 'address',
     ];
 
+    public function hasAppliedForJob(JobsListing $job): bool
+    {
+        return $this->applications()->where('jobs_listings_id', $job->id)->exists();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

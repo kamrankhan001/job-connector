@@ -10,7 +10,7 @@ class Application extends Model
     use HasFactory;
 
     protected $fillable = [
-        'jobs_listing_id', 'job_seeker_id', 'cover_letter', 'status', 'applied_at',
+        'jobs_listings_id', 'job_seeker_id', 'cover_letter', 'status', 'applied_at',
     ];
 
     public function jobsListing()

@@ -20,9 +20,19 @@
                 </li> --}}
                 @if (Route::has('login'))
                     @auth
-                        <x-nav-link href="{{ url('/dashboard') }}" :active="request()->routeIs('dashboard')">
-                            Dashboard
-                        </x-nav-link>
+                        @if (auth()->user()->role == 'job_seeker')
+                            <x-nav-link href="{{ route('job-seeker.dashboard') }}" :active="request()->routeIs('dashboard')">
+                                Dashboard
+                            </x-nav-link>
+                        @elseif (auth()->user()->role == 'company')
+                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                                Dashboard
+                            </x-nav-link>
+                        @else
+                            <x-nav-link href="{{ url('/dashboard') }}" :active="request()->routeIs('dashboard')">
+                                Dashboard
+                            </x-nav-link>
+                        @endif
                     @else
                         <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">
                             Log in
