@@ -18,45 +18,45 @@
     </x-slot>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5">
-        <div class="bg-white border border-gray-200 rounded-lg p-6 dark:bg-gray-800 dark:border-gray-700">
-            <table id="applications-table" class="min-w-full divide-y divide-gray-200">
-                <thead>
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3">
                             Job Title
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3">
                             Applicant Name
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3">
                             Status
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3">
                             Applied At
                         </th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="px-6 py-3">
                             Actions
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($applications as $application)
-                        <tr>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $application->jobListing->title }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                {{ $application->jobsListing->title }}
+                            </th>
+                            <td class="px-6 py-4">
                                 {{ $application->jobSeeker->first_name }} {{ $application->jobSeeker->last_name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4">
                                 {{ ucfirst($application->status) }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                {{ $application->applied_at->format('M d, Y H:i') }}
+                            <td class="px-6 py-4">
+                                {{ $application->applied_at->format('M d, Y') }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-                                <a href="{{ route('application.show', $application->id) }}"
-                                    class="text-blue-500 hover:text-blue-700">
+                            <td class="px-6 py-4">
+                                <a href="#" class="text-blue-500 hover:text-blue-700">
                                     View
                                 </a>
                             </td>
@@ -65,19 +65,6 @@
                 </tbody>
             </table>
         </div>
-    </div>
 
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                $('#applications-table').DataTable({
-                    responsive: true,
-                    autoWidth: false,
-                    order: [
-                        [3, 'desc']
-                    ],
-                });
-            });
-        </script>
-    @endpush
+    </div>
 </x-app-layout>

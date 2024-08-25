@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Application;
-use App\Models\JobsListing;
 
 class ApplicationController extends Controller
 {
