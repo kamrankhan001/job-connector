@@ -11,6 +11,7 @@ use App\Http\Controllers\Company\ApplicationController;
 // JOb Seeker
 use App\Http\Controllers\JobSeeker\DashboardController as JobSeekerDashboardController;
 use App\Http\Controllers\JobSeeker\PortfolioController;
+use App\Http\Controllers\JobSeeker\ApplicationController as JobSeekerApplicationController;
 
 
 
@@ -66,6 +67,9 @@ Route::middleware('auth')->group(function () {
 
     // Apply for job
     Route::post('/apply/{job}', [HomeController::class, 'apply'])->name('apply.job');
+
+    Route::get('/applications', [JobSeekerApplicationController::class, 'index'])->name('job-seeker.applications');
+
 
 
 });
