@@ -1,12 +1,11 @@
 <x-guest-layout>
-    <form method="GET" action="#" class="my-20">
-        @csrf
+    <form method="GET" action="{{ route('find.job') }}" class="my-20">
         <div class="flex items-center gap-4 w-full">
             <!-- Job Title -->
             <div class="relative w-full">
                 <x-heroicon-m-magnifying-glass
                     class="w-6 h-6 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-                <input type="text" id="job" name="job"
+                <input type="text" id="job" name="job" value="{{ $job ?? ''}}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Job Title, Keyword & Company" required autofocus autocomplete="off" />
             </div>
@@ -15,12 +14,12 @@
             <div class="relative w-full">
                 <x-heroicon-m-map-pin
                     class="w-6 h-6 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-                <input type="text" id="location" name="location"
+                <input type="text" id="location" name="location" value="{{ $location ?? '' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Country & City" required autofocus autocomplete="off" />
             </div>
 
-            <button type="button"
+            <button type="submit"
                 class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-lg px-6 py-2 text-center">
                 Find
             </button>
@@ -66,8 +65,7 @@
             <div class="flex justify-center items-center">
                 <div class="text-center">
                     <p class="mb-3">
-                        Sorry, we can't find any job. <br>
-                        Please search another job.
+                        Sorry, we can't find any job.
                     </p>
                 </div>
             </div>

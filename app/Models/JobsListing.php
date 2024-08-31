@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class JobsListing extends Model
@@ -10,6 +11,18 @@ class JobsListing extends Model
     use HasFactory;
 
     protected $fillable = ['company_id', 'title', 'description', 'requirements', 'location', 'salary', 'job_type'];
+
+    // Scope for filtering by location
+    public function scopeByLocation(Builder $query, string $location): Builder
+    {
+        return $query->where('location', 'like', '%' . $location . '%');
+    }
+
+    // Scope for filtering by job title
+    public function scopeByTitle(Builder $query, string $title): Builder
+    {
+        return $query->where('title', 'like', '%' . $title . '%');
+    }
 
     public function company()
     {

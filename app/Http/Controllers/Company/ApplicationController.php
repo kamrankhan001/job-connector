@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-use App\Models\Company;
+use App\Models\JobSeeker;
 use App\Models\Application;
 
 
@@ -21,5 +19,10 @@ class ApplicationController extends Controller
             ->get();
 
         return view('company.application.index', compact('applications'));
+    }
+
+    public function applicant(JobSeeker $applicant): View
+    {
+        return view('company.application.applicant', compact('applicant'));
     }
 }

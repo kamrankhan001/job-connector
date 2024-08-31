@@ -85,7 +85,7 @@
         <div class="mt-8">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">Description</h2>
             <p class="mt-2 text-base text-gray-700 dark:text-gray-300">
-                {{ $job->description }}
+                {!! $job->description !!}
             </p>
         </div>
 
@@ -93,7 +93,7 @@
         <div class="mt-8">
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">Requirements</h2>
             <p class="mt-2 text-base text-gray-700 dark:text-gray-300">
-                {{ $job->requirements }}
+                {!! $job->requirements !!}
             </p>
         </div>
     </div>

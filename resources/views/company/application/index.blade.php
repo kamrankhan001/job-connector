@@ -56,7 +56,7 @@
                                 {{ $application->applied_at->format('M d, Y') }}
                             </td>
                             <td class="px-6 py-4">
-                                <a href="#" class="text-blue-500 hover:text-blue-700">
+                                <a href="{{ route('applicant.portfolio' , ['applicant'=>$application->jobSeeker->id]) }}" class="text-blue-500 hover:text-blue-700">
                                     View
                                 </a>
                             </td>

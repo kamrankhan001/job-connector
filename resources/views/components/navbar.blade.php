@@ -25,7 +25,7 @@
                                 Dashboard
                             </x-nav-link>
                         @elseif (auth()->user()->role == 'company')
-                            <x-nav-link href="#" :active="request()->routeIs('dashboard')">
+                            <x-nav-link href="{{ route('company.dashboard') }}" :active="request()->routeIs('dashboard')">
                                 Dashboard
                             </x-nav-link>
                         @else
