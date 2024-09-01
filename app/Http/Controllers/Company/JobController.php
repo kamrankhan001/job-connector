@@ -6,72 +6,104 @@ use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\JobListingRequest;
-use Illuminate\Http\Request;
 use App\Models\JobsListing;
-use App\Models\Company;
 
 class JobController extends Controller
 {
+    /**
+     * Display a listing of jobs posted by the company.
+     *
+     * @return View
+     */
     public function index(): View
     {
-        $company = Company::where('user_id', auth()->user()->id)->first();
-        $jobs = JobsListing::where('company_id', $company->id)
+        // Retrieve the current company based on the authenticated user's ID
+        $company = auth()->user()->company;
+
+        // Fetch the jobs associated with the company and paginate the results
+        $jobs = $company->jobsListing()
             ->latest()
             ->paginate(10);
 
         return view('company.job.index', compact('jobs'));
     }
 
+    /**
+     * Display a specific job listing.
+     *
+     * @param JobsListing $job
+     * @return View
+     */
     public function show(JobsListing $job): View
     {
         return view('company.job.view', compact('job'));
     }
 
+    /**
+     * Show the form for creating a new job listing.
+     *
+     * @return View
+     */
     public function create(): View
     {
         return view('company.job.create');
     }
 
+    /**
+     * Store a newly created job listing in storage.
+     *
+     * @param JobListingRequest $request
+     * @return RedirectResponse
+     */
     public function store(JobListingRequest $request): RedirectResponse
     {
+        // Validate the request data
         $validated = $request->validated();
 
-        JobsListing::create([
-            'company_id' => auth()->user()->id,
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'requirements' => $validated['requirements'],
-            'location' => $validated['location'],
-            'salary' => $validated['salary'],
-            'job_type' => $validated['job_type'],
-        ]);
+        // Create a new job listing using the company relationship
+        auth()->user()->company->jobsListing()->create($validated);
 
         return redirect()->route('jobs')->with('success', 'Job listing created successfully!');
     }
 
+    /**
+     * Show the form for editing a job listing.
+     *
+     * @param JobsListing $job
+     * @return View
+     */
     public function edit(JobsListing $job): View
     {
         return view('company.job.edit', compact('job'));
     }
 
+    /**
+     * Update the specified job listing in storage.
+     *
+     * @param JobListingRequest $request
+     * @param JobsListing $job
+     * @return RedirectResponse
+     */
     public function update(JobListingRequest $request, JobsListing $job): RedirectResponse
     {
+        // Validate the request data
         $validated = $request->validated();
 
-        $job->update([
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-            'requirements' => $validated['requirements'],
-            'location' => $validated['location'],
-            'salary' => $validated['salary'],
-            'job_type' => $validated['job_type'],
-        ]);
+        // Update the job listing with validated data
+        $job->update($validated);
 
         return redirect()->route('jobs')->with('success', 'Job updated successfully!');
     }
 
+    /**
+     * Remove the specified job listing from storage.
+     *
+     * @param JobsListing $job
+     * @return RedirectResponse
+     */
     public function destroy(JobsListing $job): RedirectResponse
     {
+        // Delete the job listing
         $job->delete();
 
         return redirect()->route('jobs')->with('success', 'Job deleted successfully!');

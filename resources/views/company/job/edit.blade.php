@@ -1,7 +1,9 @@
 <x-app-layout>
+    <!-- Breadcrumb navigation for easy navigation between Job list and Edit Job page -->
     <x-slot name="header">
         <nav class="flex" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+                <!-- Link to Jobs listing page -->
                 <li class="inline-flex items-center">
                     <a href="{{ route('jobs') }}"
                         class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-white">
@@ -9,6 +11,7 @@
                         Job
                     </a>
                 </li>
+                <!-- Current page indicator with "Edit" label -->
                 <li aria-current="page">
                     <div class="flex items-center">
                         <x-heroicon-m-chevron-right class="w-6 h-6 text-gray-400 mx-1" />
@@ -19,13 +22,19 @@
         </nav>
     </x-slot>
 
+    <!-- Main container for the job edit form -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5">
         <div
             class="block w-full p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+
+            <!-- Form to update the job details -->
             <form action="{{ route('job.update', $job->id) }}" method="POST">
                 @csrf
                 @method('PUT')
+
+                <!-- Form fields arranged in a 2-column grid -->
                 <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <!-- Job Title input field -->
                     <div>
                         <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job
                             Title</label>
@@ -36,6 +45,8 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Salary input field -->
                     <div>
                         <label for="salary"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Salary</label>
@@ -45,6 +56,8 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Location input field with suggestions feature -->
                     <div class="relative">
                         <label for="location"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Location</label>
@@ -54,10 +67,13 @@
                         @error('location')
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
+                        <!-- Suggestions box for location autocomplete -->
                         <div
                             class="suggestions-box hidden absolute w-full bg-white border border-gray-300 rounded-lg shadow-lg mt-1 z-10">
                         </div>
                     </div>
+
+                    <!-- Job Type dropdown field -->
                     <div>
                         <label for="job_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Job
                             Type</label>
@@ -81,6 +97,8 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Job Description textarea -->
                     <div>
                         <label for="description"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
@@ -91,6 +109,8 @@
                             <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+
+                    <!-- Job Requirements textarea -->
                     <div>
                         <label for="requirements"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Requirements</label>
@@ -102,11 +122,15 @@
                         @enderror
                     </div>
                 </div>
+
+                <!-- Form action buttons: Cancel and Update -->
                 <div class="flex justify-end gap-x-2">
+                    <!-- Link to go back to the Jobs listing page -->
                     <a href="{{ route('jobs') }}"
                         class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                         Cancel
                     </a>
+                    <!-- Button to submit the form and update the job -->
                     <button type="submit"
                         class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-2">
                         Update
@@ -116,6 +140,7 @@
         </div>
     </div>
 
+    <!-- Slot for additional scripts; includes external JS file for handling location suggestions -->
     <x-slot name="script">
         <script src="{{asset('assets/js/location.js')}}"></script>
     </x-slot>
