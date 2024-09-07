@@ -18,10 +18,16 @@ class HomeController extends Controller
      */
     public function index(Request $request): View
     {
-        $userCity = $this->getUserCity($request->ip());
+        // Get the user's city based on their IP address
+        $jobLocation = $this->getUserCity($request->ip());
 
-        $jobs = JobsListing::byLocation($userCity)->latest()->get();
+        // Fetch jobs based on the user's city
+        $jobs = JobsListing::query()
+            ->byLocation($jobLocation)
+            ->latest() // Order by latest job postings
+            ->paginate(10); // Paginate results, 10 per page
 
+        // Pass the jobs to the view
         return view('index', compact('jobs'));
     }
 
@@ -31,17 +37,25 @@ class HomeController extends Controller
      * @param Request $request
      * @return View
      */
-    public function findJob(Request $request): View
+    public function findJobs(Request $request): View
     {
-        // Retrieve the search inputs
-        $job = $request->input('job');
+        // Retrieve the title and location filters from the request
+        $title = $request->input('job');
         $location = $request->input('location');
 
         // Fetch the jobs based on the search criteria
-        $jobs = JobsListing::byTitle($job)->byLocation($location)->latest()->get();
+        $jobs = JobsListing::query()
+            ->when($title, function ($query, $title) {
+                return $query->byTitle($title); // Apply title filter if provided
+            })
+            ->when($location, function ($query, $location) {
+                return $query->byLocation($location); // Apply location filter if provided
+            })
+            ->latest() // Order by latest job postings
+            ->paginate(10); // Paginate results, 10 per page
 
-        // Pass the input values back to the view
-        return view('index', compact('jobs', 'job', 'location'));
+        // Pass the input values and jobs to the view
+        return view('index', compact('jobs', 'title', 'location'));
     }
 
     /**
@@ -52,10 +66,58 @@ class HomeController extends Controller
      */
     public function showJob(JobsListing $job): View
     {
+        // Check if the authenticated user has applied for this job
         $isApplied = auth()->user()?->jobSeeker?->hasAppliedForJob($job) ?? false;
 
         // Pass the job listing and the application status to the view
         return view('job-view', compact('job', 'isApplied'));
+    }
+
+    /**
+     * Filter jobs based on multiple criteria.
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function filterJobs(Request $request): View
+    {
+        // Retrieve filter inputs from the request
+        $title = $request->input('job');
+        $location = $request->input('location');
+        $jobPostedDate = $request->input('date');
+        $jobSalary = $request->input('salary');
+        $jobType = $request->input('job_type');
+
+        // Construct the query based on filters
+        $query = JobsListing::query();
+
+        // Apply filters if they are provided
+        if ($jobPostedDate) {
+            $query->byPostedDate($jobPostedDate);
+        }
+
+        if (!empty($jobSalary)) {
+            [$minSalary, $maxSalary] = explode('_', $jobSalary);
+            $query->bySalary($minSalary, $maxSalary);
+        }
+
+        if ($jobType) {
+            $query->byJobType($jobType);
+        }
+
+        if ($location) {
+            $query->byLocation($location);
+        }
+
+        if ($title) {
+            $query->byTitle($title);
+        }
+
+        // Get the filtered jobs
+        $jobs = $query->latest()->paginate(10);
+
+        // Pass the filtered jobs and filter criteria to the view
+        return view('index', compact('jobs', 'title', 'location'));
     }
 
     /**
@@ -66,17 +128,20 @@ class HomeController extends Controller
      */
     public function applyForJob(JobsListing $job): RedirectResponse
     {
+        // Get the authenticated job seeker
         $jobSeeker = auth()->user()?->jobSeeker;
 
+        // Check if the user is a job seeker
         if (!$jobSeeker) {
             return redirect()->back()->with('error', 'You need to create a portfolio as a job seeker to apply for jobs.');
         }
 
+        // Check if the user has already applied for this job
         if ($jobSeeker->hasAppliedForJob($job)) {
             return redirect()->back()->with('warning', 'You already applied for this job!');
         }
 
-        // Create a new application record linking the job seeker to the job listing
+        // Create a new application record
         $jobSeeker->applications()->create([
             'jobs_listings_id' => $job->id,
         ]);
@@ -94,13 +159,13 @@ class HomeController extends Controller
     {
         // For local development and testing, IP is hard-coded
         if ($ip === '127.0.0.1') {
-            return 'Unknown';
+            return 'bahawalpur';
         }
 
         // Default city in case API fails
         $defaultCity = 'Unknown';
 
-        // Getting user city
+        // Get user's city from IP address
         try {
             $response = Http::get('https://ipinfo.io/' . $ip, [
                 'token' => 'ef0cd9b6bfe529',

@@ -22,7 +22,10 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::get('/job/{job}', [HomeController::class, 'showJob'])->name('job');
 
-Route::get('/find-job/', [HomeController::class, 'findJob'])->name('find.job');
+Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find.jobs');
+
+Route::get('/filter-jobs', [HomeController::class, 'filterJobs'])->name('filter.jobs');
+
 
 
 Route::get('/autocomplete/location', [AutocompleteController::class, 'locations'])->name('autocomplete.locations');
