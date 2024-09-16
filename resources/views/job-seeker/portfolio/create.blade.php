@@ -68,13 +68,13 @@
                     </div>
 
                     <div>
-                        <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <label for="places" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                             Address
                         </label>
-                        <input type="text" id="address" name="address"
+                        <input type="text" id="places" name="address"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Address" required autocomplete="off" value="{{ old('address') }}" />
-                        <div id="address-results"
+                        <div id="places-results"
                             class="max-h-[200px] overflow-y-auto absolute z-[1000] mt-1 border border-gray-300 rounded-lg bg-white shadow-lg">
                         </div>
                         @error('address')
@@ -134,7 +134,7 @@
     <x-slot name="script">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="{{ asset('assets/js/paces.js') }}"></script>
+        <script src="{{ asset('assets/js/places.js') }}"></script>
         <script src="{{ asset('assets/js/phone.js') }}"></script>
         <script src="{{ asset('assets/js/pdf-preview.js') }}"></script>
     </x-slot>

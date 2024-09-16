@@ -15,9 +15,12 @@
             <div class="relative w-full md:w-1/2">
                 <x-heroicon-o-map-pin
                     class="w-6 h-6 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
-                <input type="text" id="location" name="location" value="{{ $location ?? '' }}"
+                <input type="text" id="places" name="location" value="{{ $location ?? '' }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
                     placeholder="Location" autocomplete="off" />
+                <div id="places-results"
+                    class="max-h-[200px] overflow-y-auto absolute z-[1000] mt-1 border border-gray-300 rounded-lg bg-white shadow-lg">
+                </div>
             </div>
 
             <button type="submit"
@@ -124,33 +127,9 @@
     @endif
 
     <x-slot name="script">
+        <script src="{{ asset('assets/js/places.js') }}"></script>
         <script>
             $(document).ready(function() {
-                $("#location").autocomplete({
-                    source: function(request, response) {
-                        $.ajax({
-                            url: "{{ route('autocomplete.locations') }}",
-                            method: "GET",
-                            data: {
-                                term: request.term
-                            },
-                            success: function(data) {
-                                let cities = typeof data === "string" ? JSON.parse(data) : data;
-                                response($.map(cities, function(city) {
-                                    return {
-                                        label: city.city + ", " + city.country,
-                                        value: city.city
-                                    };
-                                }));
-                            }
-                        });
-                    },
-                    minLength: 2,
-                    select: function(event, ui) {
-                        console.log("Selected: " + ui.item.label);
-                    }
-                });
-
                 // AJAX call for job filtering
                 $('#filter_jobs select').change(function() {
                     $('#filter_jobs').submit();

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\AutocompleteController;
+use App\Http\Controllers\PlacesController;
 use App\Http\Controllers\ProfileController as BPC;
 
 // Company
@@ -27,8 +27,8 @@ Route::get('/find-jobs', [HomeController::class, 'findJobs'])->name('find.jobs')
 Route::get('/filter-jobs', [HomeController::class, 'filterJobs'])->name('filter.jobs');
 
 
+Route::get('/places', [PlacesController::class, 'index'])->name('places');
 
-Route::get('/autocomplete/location', [AutocompleteController::class, 'locations'])->name('autocomplete.locations');
 
 // Auth
 require __DIR__ . '/auth.php';
