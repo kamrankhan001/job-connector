@@ -114,34 +114,38 @@
                         }
                     });
 
-                    // Handle success
-                    if (response.data.success) {
-                        // Reset visibility state: remove hidden and add flex before showing the message
-                        $("#success-message").removeClass('hidden').addClass('flex').show();
-
-                        // Update the text with the success message
-                        $("#success-text").text(response.data.message);
-
-                        // Fade out after 2 seconds
-                        setTimeout(function() {
-                            $('#success-message').fadeOut('slow', function() {
-                                // After fade out, hide the element and adjust classes
-                                $(this).addClass('hidden').removeClass('flex');
-                            });
-                        }, 2000);
-
-                        // Allow manual closing
-                        $('#close-button').click(function() {
-                            $('#success-message').fadeOut('slow');
-                            $("#success-message").addClass('flex').removeClass('hidden');
-                        });
-                    }
+                    // Handle Response
+                    handleResponse(response.data);
 
 
                 } catch (error) {
                     // Handle error
                     alert('Failed to update application status.');
                     console.error(error.response.data); // Optional: For debugging purposes
+                }
+            }
+
+            function handleResponse(response) {
+                if (response.success) {
+                    // Reset visibility state: remove hidden and add flex before showing the message
+                    $("#success-message").removeClass('hidden').addClass('flex').show();
+
+                    // Update the text with the success message
+                    $("#success-text").text(response.message);
+
+                    // Fade out after 2 seconds
+                    setTimeout(function() {
+                        $('#success-message').fadeOut('slow', function() {
+                            // After fade out, hide the element and adjust classes
+                            $(this).addClass('hidden').removeClass('flex');
+                        });
+                    }, 2000);
+
+                    // Allow manual closing
+                    $('#close-button').click(function() {
+                        $('#success-message').fadeOut('slow');
+                        $("#success-message").addClass('flex').removeClass('hidden');
+                    });
                 }
             }
         </script>

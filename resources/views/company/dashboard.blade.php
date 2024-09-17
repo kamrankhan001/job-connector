@@ -38,15 +38,15 @@
                         <ul class="space-y-2">
                             <li class="flex items-center">
                                 <x-heroicon-m-envelope class="w-5 h-5 text-blue-500 mr-3" />
-                                Total Applications: 15
+                                Total Applications: {{$totalApplication}}
                             </li>
                             <li class="flex items-center">
                                 <x-heroicon-m-check-circle class="w-5 h-5 text-green-500 mr-3" />
-                                Accepted: 5
+                                Hired: {{$totalApproved}}
                             </li>
                             <li class="flex items-center">
                                 <x-heroicon-m-x-circle class="w-5 h-5 text-red-500 mr-3" />
-                                Rejected: 3
+                                Rejected: {{$totalRejected}}
                             </li>
                         </ul>
                     </div>
