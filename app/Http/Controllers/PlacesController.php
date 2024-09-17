@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\JsonResponse;
 
 class PlacesController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Get the places.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function index(Request $request): JsonResponse
     {
         // Validate the request to ensure `text` is provided
         $request->validate([

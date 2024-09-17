@@ -33,6 +33,7 @@ Route::get('/places', [PlacesController::class, 'index'])->name('places');
 // Auth
 require __DIR__ . '/auth.php';
 
+
 Route::middleware(['auth', 'verified'])->group(function () {
     //Admin
     Route::prefix('admin')->group(function () {
@@ -74,6 +75,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Application
         Route::get('/applications', [CompanyApplicationController::class, 'index'])->name('applications');
+        Route::get('/application/{application}/change/status', [CompanyApplicationController::class, 'changeStatus'])->name('application.status.change');
         Route::get('/application/{applicant}', [CompanyApplicationController::class, 'applicant'])->name('applicant.portfolio');
     });
 

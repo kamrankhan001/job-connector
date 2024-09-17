@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use App\Models\JobSeeker;
+use App\Models\Application;
 
 class ApplicationController extends Controller
 {
@@ -23,6 +26,30 @@ class ApplicationController extends Controller
 
         // Return the view with the list of applications
         return view('company.application.index', compact('applications'));
+    }
+
+    /**
+     * Update the status of a job application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Application  $application
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function changeStatus(Request $request, Application $application): JsonResponse
+    {
+        // Validate the incoming request to ensure the status is present and within the allowed values
+        $request->validate([
+            'status' => 'required|in:applied,reviewed,interviewed,hired,rejected', // Only accept predefined status values
+        ]);
+
+        // Update the application's status with the one provided in the request
+        $application->status = $request->status;
+
+        // Save the updated status to the database
+        $application->save();
+
+        // Return a JSON response indicating the status change was successful, with a success message
+        return response()->json(['success' => true, 'message' => 'Application status updated successfully']);
     }
 
     /**
