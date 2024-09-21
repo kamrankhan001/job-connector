@@ -32,7 +32,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="#" class="text-blue-500 mt-auto inline-block">Edit Profile</a>
+                <a href="{{route('portfolio.edit', ['portfolio' => request()->user()->jobseeker])}}" class="text-blue-500 mt-auto inline-block">Edit Profile</a>
             </div>
 
             <!-- Job Application Status -->
@@ -42,23 +42,23 @@
                     <ul class="space-y-2 text-gray-500 dark:text-gray-400">
                         <li class="flex items-center">
                             <x-heroicon-m-clock class="w-5 h-5 text-yellow-500 mr-3" />
-                            Pending: 3
+                            Pending: {{$pendingApplications}}
                         </li>
                         <li class="flex items-center">
                             <x-heroicon-m-arrow-trending-up class="w-5 h-5 text-blue-500 mr-3" />
-                            In Progress: 1
+                            In Progress: {{$progressApplications}}
                         </li>
                         <li class="flex items-center">
                             <x-heroicon-m-check-circle class="w-5 h-5 text-green-500 mr-3" />
-                            Accepted: 2
+                            Accepted: {{$acceptedApplications}}
                         </li>
                         <li class="flex items-center">
                             <x-heroicon-m-x-circle class="w-5 h-5 text-red-500 mr-3" />
-                            Rejected: 0
+                            Rejected: {{$rejectedApplications}}
                         </li>
                     </ul>
                 </div>
-                <a href="#" class="text-blue-500 mt-auto inline-block">View All Applications</a>
+                <a href="{{route('job-seeker.applications')}}" class="text-blue-500 mt-auto inline-block">View All Applications</a>
             </div>
 
             <!-- Notification Center -->

@@ -52,11 +52,11 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center">
-                                        @if ($application->status == 'pending')
+                                        @if ($application->status == 'applied')
                                             <x-heroicon-m-clock class="w-5 h-5 text-yellow-500 mr-2" />
-                                        @elseif($application->status == 'in_progress')
+                                        @elseif($application->status == 'reviewed')
                                             <x-heroicon-m-arrow-trending-up class="w-5 h-5 text-blue-500 mr-2" />
-                                        @elseif($application->status == 'accepted')
+                                        @elseif($application->status == 'interviewed')
                                             <x-heroicon-m-check-circle class="w-5 h-5 text-green-500 mr-2" />
                                         @elseif($application->status == 'rejected')
                                             <x-heroicon-m-x-circle class="w-5 h-5 text-red-500 mr-2" />

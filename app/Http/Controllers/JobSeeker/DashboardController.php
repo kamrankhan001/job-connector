@@ -11,6 +11,12 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        return view('job-seeker.dashboard');
+        $pendingApplications =  auth()->user()->jobSeeker->applications()->where('status', 'applied')->count();
+        $progressApplications =  auth()->user()->jobSeeker->applications()->where('status', 'reviewed')->count();
+        $acceptedApplications =  auth()->user()->jobSeeker->applications()->where('status', 'interviewed')->count();
+        $rejectedApplications =  auth()->user()->jobSeeker->applications()->where('status', 'rejected')->count();
+
+
+        return view('job-seeker.dashboard', compact('pendingApplications','progressApplications','acceptedApplications','rejectedApplications'));
     }
 }
