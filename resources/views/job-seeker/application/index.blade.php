@@ -13,7 +13,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5">
         <div class="relative overflow-x-auto">
             @if ($applications->isEmpty())
-                <p class="text-gray-500">You have not applied for any jobs yet.</p>
+                <p class="text-gray-500 text-xl text-center mt-2 border-t">You have not applied for any jobs yet.</p>
             @else
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -38,9 +38,8 @@
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     @if ($application->jobsListing->title)
-                                        <a href="{{route('job', ['job'=>$application->jobsListing->id])}}"
-                                            class="hover:text-blue-500"
-                                            >
+                                        <a href="{{ route('job', ['job' => $application->jobsListing->id]) }}"
+                                            class="hover:text-blue-500">
                                             {{ $application->jobsListing->title }}
                                         </a>
                                     @else
@@ -53,13 +52,15 @@
                                 <td class="px-6 py-4">
                                     <span class="inline-flex items-center">
                                         @if ($application->status == 'applied')
-                                            <x-heroicon-m-clock class="w-5 h-5 text-yellow-500 mr-2" />
-                                        @elseif($application->status == 'reviewed')
-                                            <x-heroicon-m-arrow-trending-up class="w-5 h-5 text-blue-500 mr-2" />
-                                        @elseif($application->status == 'interviewed')
                                             <x-heroicon-m-check-circle class="w-5 h-5 text-green-500 mr-2" />
+                                        @elseif($application->status == 'reviewed')
+                                            <x-heroicon-m-eye class="w-5 h-5 text-blue-500 mr-2" />
+                                        @elseif($application->status == 'interviewed')
+                                            <x-heroicon-m-chat-bubble-left-right class="w-5 h-5 text-yellow-500 mr-2" />
                                         @elseif($application->status == 'rejected')
                                             <x-heroicon-m-x-circle class="w-5 h-5 text-red-500 mr-2" />
+                                        @elseif($application->status == 'hired')
+                                            <x-heroicon-m-briefcase class="w-5 h-5 text-purple-500 mr-2" />
                                         @endif
                                         {{ ucfirst($application->status) }}
                                     </span>

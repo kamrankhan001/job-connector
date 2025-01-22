@@ -18,12 +18,22 @@ class DashboardController extends Controller
         // Get the authenticated user's company
         $company = auth()->user()->company;
 
-        // Retrieve application statistics using the Application model
-        $totalApplication = Application::totalApplicationsByCompany($company);
-        $totalApproved = Application::approvedApplicationsByCompany($company);
-        $totalRejected = Application::rejectedApplicationsByCompany($company);
+        if($company) {
+            // Retrieve application statistics using the Application model
+            $totalApplication = Application::totalApplicationsByCompany($company);
+            $totalApproved = Application::approvedApplicationsByCompany($company);
+            $totalRejected = Application::rejectedApplicationsByCompany($company);
+
+        }else{
+            $totalApplication = null;
+            $totalApproved = null;
+            $totalRejected = null;
+        }
+
+        // Fetch unread notifications
+        $notifications = auth()->user()->unreadNotifications;
 
         // Pass the data to the company dashboard view
-        return view('company.dashboard', compact('totalApplication', 'totalApproved', 'totalRejected'));
+        return view('company.dashboard', compact('totalApplication', 'totalApproved', 'totalRejected', 'notifications'));
     }
 }

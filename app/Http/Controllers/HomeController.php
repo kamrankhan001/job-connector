@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Notifications\JobApplicationReceived;
 use App\Models\JobsListing;
 
 class HomeController extends Controller
@@ -145,6 +146,9 @@ class HomeController extends Controller
         $jobSeeker->applications()->create([
             'jobs_listings_id' => $job->id,
         ]);
+
+        // Send notification to company
+        $job->company->user->notify(new JobApplicationReceived($job));
 
         return redirect()->back()->with('success', 'Application submitted successfully.');
     }

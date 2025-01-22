@@ -101,7 +101,7 @@
     {{-- Action Buttons --}}
     <div class="flex justify-end gap-x-2 mt-5">
         {{-- Cancel Button --}}
-        <a href="{{ route('index') }}"
+        <a href="{{ url()->previous() }}"
             class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
             Cancel
         </a>
@@ -123,7 +123,7 @@
 
     {{-- JavaScript for Success/Warning Message --}}
     <x-slot name="script">
-        <script>
+        <script type="module">
             $(document).ready(function() {
                 // Automatically hide the success/warning message after 2 seconds
                 setTimeout(function() {
@@ -136,6 +136,15 @@
                     $('#apply').fadeOut('slow');
                 });
             });
+
+            let jobId = {{ $job->id }}
+
+            window.Echo.private(`job.${jobId}`)
+                .notification((notification) => {
+                    console.log('Notification received:', notification);
+                    // Handle real-time notification here (e.g., show a toast)
+                });
         </script>
     </x-slot>
+
 </x-guest-layout>

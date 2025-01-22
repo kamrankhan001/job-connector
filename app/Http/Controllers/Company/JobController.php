@@ -10,20 +10,26 @@ use App\Models\JobsListing;
 
 class JobController extends Controller
 {
+    public function __construct()
+    {
+    }
+
     /**
      * Display a listing of jobs posted by the company.
      *
      * @return View
      */
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
         // Retrieve the current company based on the authenticated user's ID
         $company = auth()->user()->company;
 
+        if (is_null($company)) {
+            return redirect()->route('company.profile')->with('warning', 'Please first make profile.');
+        }
+
         // Fetch the jobs associated with the company and paginate the results
-        $jobs = $company->jobsListing()
-            ->latest()
-            ->paginate(10);
+        $jobs = $company?->jobsListing()->latest()->paginate(10);
 
         return view('company.job.index', compact('jobs'));
     }
@@ -44,8 +50,14 @@ class JobController extends Controller
      *
      * @return View
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
+        $company = auth()->user()->company;
+
+        if (is_null($company)) {
+            return redirect()->route('company.profile')->with('warning', 'Please first make profile.');
+        }
+
         return view('company.job.create');
     }
 

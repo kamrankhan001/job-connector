@@ -29,7 +29,11 @@ class ApplicationController extends Controller
      */
     private function getJobSeekerApplications() : Collection
     {
-        // Fetch the authenticated job seeker's applications, including related job listings and companies
-        return auth()->user()->jobSeeker->applications()->with('jobsListing.company')->latest()->get();
+        if(auth()->user()->jobSeeker){
+            // Fetch the authenticated job seeker's applications, including related job listings and companies
+            return auth()->user()->jobSeeker->applications()->with('jobsListing.company')->latest()->get();
+        }
+
+        return new Collection();
     }
 }

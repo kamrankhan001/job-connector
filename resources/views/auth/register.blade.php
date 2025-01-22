@@ -36,7 +36,6 @@
                     <option selected>Choose Role</option>
                     <option value="job_seeker">Job Seeker</option>
                     <option value="company">Company</option>
-                    <option value="super_admin">Super Admin</option>
                 </select>
             </div>
             <!-- Password -->

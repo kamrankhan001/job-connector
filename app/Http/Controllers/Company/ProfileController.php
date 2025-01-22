@@ -47,7 +47,7 @@ class ProfileController extends Controller
         $profile = $request->validated();
 
         // Create a new company profile using the model's method
-        Company::createProfile(auth()->user()->id(), $profile);
+        Company::createProfile(auth()->user()->id, $profile);
 
         // Redirect to the company profile route with a success message
         return redirect()->route('company.profile')

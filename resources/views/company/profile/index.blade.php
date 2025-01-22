@@ -22,6 +22,12 @@
                 </button>
             </div>
         @endif
+        @if (session()->has('warning'))
+            <div
+                class="flex items-center justify-between text-yellow-500 bg-yellow-100 border border-red-400 p-4 rounded mb-4 relative">
+                <span>{{ session()->get('warning') }}</span>
+            </div>
+        @endif
 
         @if (Auth::user()->company)
             <div class="flex justify-end mb-4">
